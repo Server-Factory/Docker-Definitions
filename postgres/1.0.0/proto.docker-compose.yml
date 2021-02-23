@@ -10,10 +10,8 @@ services:
       - 127.0.0.1:{{SERVICE.DATABASE.PORTS.PORT_EXPOSED}}:{{SERVICE.DATABASE.PORTS.PORT}}
     networks:
       - {{SERVICE.NETWORK.NAME}}
-    environment:
-      POSTGRES_USER: {{SERVICE.DATABASE.USER}}
-      POSTGRES_PASSWORD: {{SERVICE.DATABASE.PASSWORD}}
-      PGDATA: /Server/Postgres/Database
+    env_file:
+      - ./default.env
     volumes:
       - {{SERVER.SERVER_HOME}}/Server/Postgres/Database:/Server/Postgres/Database
 
