@@ -6,8 +6,6 @@ services:
     container_name: {{SERVICE.DATABASE.NAME}}
     hostname: database.{{SERVER.DOMAIN}}
     restart: always
-    env_file:
-      - ./default.env
     ports:
       - 127.0.0.1:{{SERVICE.DATABASE.PORTS.PORT_EXPOSED}}:{{SERVICE.DATABASE.PORTS.PORT}}
     networks:
