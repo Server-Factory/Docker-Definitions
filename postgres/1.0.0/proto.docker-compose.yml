@@ -1,4 +1,4 @@
-version: "3.7"
+version: "3.9"
 
 services:
   {{SERVICE.DATABASE.NAME}}:
@@ -10,8 +10,12 @@ services:
       - 127.0.0.1:{{SERVICE.DATABASE.PORTS.PORT_EXPOSED}}:{{SERVICE.DATABASE.PORTS.PORT}}
     networks:
       - {{SERVICE.NETWORK.NAME}}
+    environment:
+      POSTGRES_USER: {{SERVICE.DATABASE.USER}}
+      POSTGRES_PASSWORD: {{SERVICE.DATABASE.PASSWORD}}
+      PGDATA: /Server/Postgres/Database
     volumes:
-      - {{SERVER.SERVER_HOME}}/Server/Postgres/Database:/Server/Postgres/Database
+      - {{SERVER.HOME}}/Server/Postgres/Database:/Server/Postgres/Database
 
 networks:
   {{SERVICE.NETWORK.NAME}}:
