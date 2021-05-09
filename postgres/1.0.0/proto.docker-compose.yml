@@ -1,8 +1,8 @@
-version: "3.7"
+version: "3.9"
 
 services:
   {{SERVICE.DATABASE.NAME}}:
-    image: library/postgres:13
+    image: library/postgres:13.2
     container_name: {{SERVICE.DATABASE.NAME}}
     hostname: database.{{SERVER.DOMAIN}}
     restart: always
@@ -15,7 +15,7 @@ services:
       POSTGRES_PASSWORD: {{SERVICE.DATABASE.PASSWORD}}
       PGDATA: /Server/Postgres/Database
     volumes:
-      - {{SERVER.SERVER_HOME}}/Server/Postgres/Database:/Server/Postgres/Database
+      - {{SERVER.HOME}}/Server/Postgres/Database:/Server/Postgres/Database
 
 networks:
   {{SERVICE.NETWORK.NAME}}:

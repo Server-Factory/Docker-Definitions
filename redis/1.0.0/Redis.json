@@ -15,11 +15,11 @@
           },
           {
             "type": "deploy",
-            "value": "main/docker/redis:1.0.0@:{{DOCKER.DOCKER_HOME}}/Redis"
+            "value": "main/docker/redis:1.0.0@:{{DOCKER.HOME}}/Redis"
           },
           {
             "type": "stack",
-            "value": "{{DOCKER.DOCKER_HOME}}/Redis"
+            "value": "{{DOCKER.HOME}}/Redis"
           },
           {
             "type": "check",
@@ -31,11 +31,11 @@
           },
           {
             "type": "command",
-            "value": "ln {{DOCKER.DOCKER_HOME}}/Redis/database.redis.service /etc/systemd/system/database.redis.service"
+            "value": "ln {{DOCKER.HOME}}/Redis/database.redis.service /etc/systemd/system/database.redis.service"
           },
           {
             "type": "command",
-            "value": "sh {{SERVER.SERVER_HOME}}/Utils/setenforce.sh"
+            "value": "sh {{SERVER.UTILS_HOME}}/setenforce.sh"
           },
           {
             "type": "command",
