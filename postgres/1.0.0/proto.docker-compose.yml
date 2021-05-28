@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   {{SERVICE.DATABASE.NAME}}:
-    image: library/postgres:13.2
+    image: library/postgres:13.3
     container_name: {{SERVICE.DATABASE.NAME}}
     hostname: database.{{SERVER.DOMAIN}}
     restart: always
