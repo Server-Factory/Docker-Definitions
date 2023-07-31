@@ -1,0 +1,53 @@
+version: "3.9"
+
+services:
+  {{SERVICE.SONARQUBE.NAME}}:
+    image: library/sonarqube:10.1.0-community
+    container_name: {{SERVICE.SONARQUBE.NAME}}
+    hostname: {{SERVICE.SONARQUBE.NAME}}
+    restart: always
+    ports:
+      - 0.0.0.0:{{SERVICE.SONARQUBE.PORTS.PORT_EXPOSED}}:9000
+    networks:
+      - {{SERVICE.SONARQUBE.NAME}}
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+    environment:
+      SONAR_JDBC_URL: jdbc:postgresql://postgres.{{SERVICE.SONARQUBE.NAME}}:5432/postgres.{{SERVICE.SONARQUBE.NAME}}
+      SONAR_JDBC_USERNAME: {{SERVICE.DATABASE.USER}}
+      SONAR_JDBC_PASSWORD: {{SERVICE.DATABASE.PASSWORD}}
+    volumes:
+      - main.{{SERVICE.SONARQUBE.NAME}}.data:/opt/sonarqube/data
+      - main.{{SERVICE.SONARQUBE.NAME}}.logs:/opt/sonarqube/logs
+      - main.{{SERVICE.SONARQUBE.NAME}}.extensions:/opt/sonarqube/extensions
+    depends_on:
+      - postgres.{{SERVICE.SONARQUBE.NAME}}
+  postgres.{{SERVICE.SONARQUBE.NAME}}:
+    image: library/postgres:13.3
+    container_name: postgres.{{SERVICE.SONARQUBE.NAME}}
+    hostname: postgres.{{SERVICE.SONARQUBE.NAME}}
+    restart: always
+    ports:
+      - 127.0.0.1:5432:5432
+    networks:
+      - {{SERVICE.SONARQUBE.NAME}}
+    environment:
+      POSTGRES_USER: {{SERVICE.DATABASE.USER}}
+      POSTGRES_PASSWORD: {{SERVICE.DATABASE.PASSWORD}}
+      POSTGRES_DB: postgres.{{SERVICE.SONARQUBE.NAME}}
+    volumes:
+      - postgres.{{SERVICE.SONARQUBE.NAME}}:/var/lib/postgresql
+      - postgres.{{SERVICE.SONARQUBE.NAME}}.data:/var/lib/postgresql/data
+networks:
+  {{SERVICE.SONARQUBE.NAME}}:
+    external: true
+volumes:
+  main.{{SERVICE.SONARQUBE.NAME}}.data:
+  main.{{SERVICE.SONARQUBE.NAME}}.logs:
+  main.{{SERVICE.SONARQUBE.NAME}}.extensions:
+  postgres.{{SERVICE.SONARQUBE.NAME}}:
+  postgres.{{SERVICE.SONARQUBE.NAME}}.data:
+
+
