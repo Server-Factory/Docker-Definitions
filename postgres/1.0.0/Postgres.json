@@ -31,7 +31,7 @@
           },
           {
             "type": "command",
-            "value": "sh {{SERVER.UTILS_HOME}}/setenforce.sh"
+            "value": "bash {{SERVER.UTILS_HOME}}/setenforce.sh"
           },
           {
             "type": "command",
